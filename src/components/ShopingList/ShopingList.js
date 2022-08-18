@@ -1,4 +1,4 @@
-import commonColumnsStyles from "../../common/styles/Columns.module.scss";
+import commonColumnsStyles from "../../common/styles/Columns.module.scss";fetchData90
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,12 +9,13 @@ function ShopingList() {
   const dispatch = useDispatch();
   const shoppingstate = useSelector((state) => state.shopping.shoppingList);
   const shoppingIsLoading = useSelector((state) => state.shopping.isLoading);
+  const apiUrl = 'https://f90r7jsyq7.execute-api.eu-central-1.amazonaws.com/latest';
 
   const fetchData = async () => {
     // setIsLoading(true);
     try {
       console.log("Axios start");
-      const res = await axios.get("http://localhost:9000/products/shopingList");
+      const res = await axios.get(apiUrl+"/products/shopingList");
       dispatch({ type: "SET_INITIAL_SHOPPING_LIST", value: res.data });
     } catch (error) {
       console.log("Error while retreiving Shopping list", error);
@@ -29,7 +30,7 @@ function ShopingList() {
   const handleLeftClick = async (id) => {
     setIsLoading(true);
     try {
-      await axios.delete(`http://localhost:9000/products/shopingList/${id}`);
+      await axios.delete(apiUrl+`/products/shopingList/${id}`);
     } catch (e) {
       console.log("Error while deleting from Shopping list", e);
       setIsLoading(false);
