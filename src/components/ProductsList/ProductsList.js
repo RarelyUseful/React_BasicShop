@@ -14,9 +14,13 @@ function ProductsList() {
   const productsState = useSelector((state) => state.filtered.productsList);
   const productsLoading = useSelector((state) => state.products.isLoading);
   const [selectedItem, setSelecteditem] = useState(0);
+  const apiUrl = 'https://f90r7jsyq7.execute-api.eu-central-1.amazonaws.com/latest';
+  const focusOnSelectedItem = () => {
+  //this should happen only when clicked on load buttons
+  myref.current.focus()};
 
   useEffect(() => {
-    myref.current.focus();
+    
   }, [productsState]);
 
   const setShoppingLoading = (bool) => {
@@ -26,7 +30,7 @@ function ProductsList() {
   const handleLeftClick = async (data) => {
     setShoppingLoading(true);
     try {
-      await axios.post("http://localhost:9000/products/shopingList/new", data);
+      await axios.post(apiUrl+"/products/shopingList/new", data);
     } catch (e) {
       console.log("ERROR", e);
       setShoppingLoading(false);

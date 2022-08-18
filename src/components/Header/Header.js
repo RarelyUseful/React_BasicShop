@@ -8,10 +8,12 @@ import { useDispatch } from "react-redux";
 function Header(props) {
   const currentUser = JSON.parse(window.localStorage.getItem("user"));
   const dispatch = useDispatch();
+  const apiUrl = 'https://f90r7jsyq7.execute-api.eu-central-1.amazonaws.com/latest';
+
   const handleClick = async () => {
     dispatch({ type: "SET_PRODUCTS_LOADING", value: true });
     try {
-      const response = await axios.get(`http://localhost:9000/products`);
+      const response = await axios.get(apiUrl+`/products`);
       dispatch({ type: "SET_INITIAL_PRODUCTS_LIST", value: response.data });
       dispatch({ type: "SET_INITIAL_FILTERED_LIST", value: response.data });
     } catch (e) {

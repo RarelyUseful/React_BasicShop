@@ -26,6 +26,7 @@ export const filtersReducer = (state = initialProductState, action) => {
         ...state,
         productsList: state.productsList.filter((e) =>
           e.name.toLowerCase().includes(action.value.toLowerCase())
+          // productList: state.originalPL.filter...
         ),
       };
     default:

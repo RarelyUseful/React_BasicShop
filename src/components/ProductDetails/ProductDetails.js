@@ -8,10 +8,12 @@ function ProductDetails() {
   const params = useParams();
   const navigate = useNavigate();
   const myref = useRef(null);
+  const apiUrl = 'https://f90r7jsyq7.execute-api.eu-central-1.amazonaws.com/latest';
+
   const [itemDetails, setItemDetails] = useState();
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:9000/products/${params.id}`);
+      const response = await axios.get(apiUrl+`/products/${params.id}`);
       setItemDetails(response.data);
     } catch (e) {
       console.log("ERROR", e);
