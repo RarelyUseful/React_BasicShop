@@ -1,4 +1,4 @@
-import commonColumnsStyles from "../../common/styles/Columns.module.scss";fetchData90
+import commonColumnsStyles from "../../common/styles/Columns.module.scss";
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
