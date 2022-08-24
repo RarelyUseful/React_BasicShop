@@ -14,14 +14,13 @@ function ProductsList() {
   const productsState = useSelector((state) => state.filtered.productsList);
   const productsLoading = useSelector((state) => state.products.isLoading);
   const [selectedItem, setSelecteditem] = useState(0);
-  const apiUrl = 'https://f90r7jsyq7.execute-api.eu-central-1.amazonaws.com/latest';
+  const apiUrl = "https://f90r7jsyq7.execute-api.eu-central-1.amazonaws.com/latest";
   const focusOnSelectedItem = () => {
-  //this should happen only when clicked on load buttons
-  myref.current.focus()};
+    myref.current.focus();
+    //TODO: this should happen when clicked on load button or comes back from details view
+  };
 
-  useEffect(() => {
-    
-  }, [productsState]);
+  useEffect(() => {}, [productsState]);
 
   const setShoppingLoading = (bool) => {
     dispatch({ type: "SET_SHOPPING_LOADING", value: bool });
@@ -30,7 +29,11 @@ function ProductsList() {
   const handleLeftClick = async (data) => {
     setShoppingLoading(true);
     try {
-      await axios.post(apiUrl+"/products/shopingList/new", data);
+      const config = {
+        "Access-Control-Allow-Origin": "https://main.d3i3mzynxrfzb0.amplifyapp.com",
+        "Content-Type": "application/json",
+      };
+      await axios.post(apiUrl + "/products/shopingList/new", data, config);
     } catch (e) {
       console.log("ERROR", e);
       setShoppingLoading(false);

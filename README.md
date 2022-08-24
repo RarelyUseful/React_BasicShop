@@ -1,2 +1,4 @@
-# React_BasicShop
-Basic Shop app. Uses Redux and API calls to get/post data. 
+# Shopping List
+
+Basic Shoping List app. Uses Redux and API calls to get/post data.
+API response is delayed by 2 seconds (by design).

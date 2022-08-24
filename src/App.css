@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+.Selected {
+  background-color: white;
+  border: 2px blue solid;
+  border-radius: 10px;
+  padding: 1px;
+}

@@ -9,13 +9,17 @@ function ShopingList() {
   const dispatch = useDispatch();
   const shoppingstate = useSelector((state) => state.shopping.shoppingList);
   const shoppingIsLoading = useSelector((state) => state.shopping.isLoading);
-  const apiUrl = 'https://f90r7jsyq7.execute-api.eu-central-1.amazonaws.com/latest';
+  const apiUrl = "https://f90r7jsyq7.execute-api.eu-central-1.amazonaws.com/latest";
 
   const fetchData = async () => {
     // setIsLoading(true);
     try {
       console.log("Axios start");
-      const res = await axios.get(apiUrl+"/products/shopingList");
+      const config = {
+        "Access-Control-Allow-Origin": "https://main.d3i3mzynxrfzb0.amplifyapp.com",
+        "Content-Type": "application/json",
+      };
+      const res = await axios.get(apiUrl + "/products/shopingList", config);
       dispatch({ type: "SET_INITIAL_SHOPPING_LIST", value: res.data });
     } catch (error) {
       console.log("Error while retreiving Shopping list", error);
@@ -30,7 +34,7 @@ function ShopingList() {
   const handleLeftClick = async (id) => {
     setIsLoading(true);
     try {
-      await axios.delete(apiUrl+`/products/shopingList/${id}`);
+      await axios.delete(apiUrl + `/products/shopingList/${id}`);
     } catch (e) {
       console.log("Error while deleting from Shopping list", e);
       setIsLoading(false);
@@ -42,7 +46,7 @@ function ShopingList() {
     if (shoppingIsLoading) {
       fetchData();
     }
-  }, [shoppingIsLoading]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [shoppingIsLoading, shoppingstate]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div className={commonColumnsStyles.App}>
       <header className={commonColumnsStyles.AppHeader}>
