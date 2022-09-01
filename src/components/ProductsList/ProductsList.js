@@ -5,16 +5,15 @@ import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
-import axios from "axios";
-
 function ProductsList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const myref = useRef(null);
   const productsState = useSelector((state) => state.filtered.productsList);
   const productsLoading = useSelector((state) => state.products.isLoading);
+  const shoppingstate = useSelector((state) => state.shopping.shoppingList);
+
   const [selectedItem, setSelecteditem] = useState(0);
-  const apiUrl = "https://f90r7jsyq7.execute-api.eu-central-1.amazonaws.com/latest";
   const focusOnSelectedItem = () => {
     myref.current.focus();
     //TODO: this should happen when clicked on load button or comes back from details view
@@ -29,11 +28,11 @@ function ProductsList() {
   const handleLeftClick = async (data) => {
     setShoppingLoading(true);
     try {
-      const config = {
-        "Access-Control-Allow-Origin": "https://main.d3i3mzynxrfzb0.amplifyapp.com",
-        "Content-Type": "application/json",
-      };
-      await axios.post(apiUrl + "/products/shopingList/new", data, config);
+      // await axios.post(apiUrl + "/products/shopingList/new", data);
+      dispatch({
+        type: "SET_INITIAL_SHOPPING_LIST",
+        value: [...shoppingstate, data],
+      });
     } catch (e) {
       console.log("ERROR", e);
       setShoppingLoading(false);
@@ -67,6 +66,7 @@ function ProductsList() {
       ref={myref}
       tabIndex={0}
       onKeyDown={(event) => handleKeyDown(event)}
+      onMouseOver={() => focusOnSelectedItem()}
       className={commonColumnsStyles.App}
     >
       <header className={commonColumnsStyles.AppHeader}>

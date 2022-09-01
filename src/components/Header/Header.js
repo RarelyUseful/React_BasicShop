@@ -8,12 +8,16 @@ import { useDispatch } from "react-redux";
 function Header(props) {
   const currentUser = JSON.parse(window.localStorage.getItem("user"));
   const dispatch = useDispatch();
-  const apiUrl = 'https://f90r7jsyq7.execute-api.eu-central-1.amazonaws.com/latest';
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleClick = async () => {
     dispatch({ type: "SET_PRODUCTS_LOADING", value: true });
     try {
-      const response = await axios.get(apiUrl+`/products`);
+      const config = {
+        "Access-Control-Allow-Origin": process.env.REACT_APP_ORI,
+        "Content-Type": "application/json",
+      };
+      const response = await axios.get(apiUrl + `/products`, config);
       dispatch({ type: "SET_INITIAL_PRODUCTS_LIST", value: response.data });
       dispatch({ type: "SET_INITIAL_FILTERED_LIST", value: response.data });
     } catch (e) {
