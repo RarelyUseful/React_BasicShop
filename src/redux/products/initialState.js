@@ -13,7 +13,7 @@ export const initialProductState = {
  *
  * isLoading flags changes  */
 export const initialShoppingListState = {
-  shoppingList: JSON.parse(window.localStorage.getItem("shoppingList")),
+  shoppingList: JSON.parse(window.localStorage.getItem("shoppingList")) || [],
   // shoppingList: [],
   isLoading: true,
 };
